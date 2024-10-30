@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cumple Gise</title>
+    <title>Carrusel de Imágenes</title>
     <style>
         body {
             display: flex;
@@ -23,66 +23,48 @@
             overflow: hidden; /* Esconde las imágenes que están fuera de la vista */
             width: 90%;
             max-width: 700px;
-            height: auto; /* Permitir altura automática */
             position: relative;
+        }
+
+        .images-container {
+            display: flex; /* Permite que las imágenes estén en línea */
+            transition: transform 0.5s ease; /* Transición suave al cambiar de imagen */
         }
 
         .carrusel img {
             min-width: 100%; /* Cada imagen ocupará el ancho completo del contenedor */
-            transition: transform 0.5s ease; /* Transición suave al cambiar de imagen */
-        }
-
-        .carrusel img.invisible {
-            transform: translateX(-100%); /* Mueve las imágenes invisibles fuera de la vista */
-        }
-
-        button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .prev {
-            left: 10px; /* Botón anterior */
-        }
-
-        .next {
-            right: 10px; /* Botón siguiente */
+            cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
         }
     </style>
 </head>
 <body>
     <div class="carrusel">
-        <button class="prev">&lt;</button>
-       <img src="profeta1.gif" alt="Cumple de Gise!!" />
-      <img src="profeta2.png" alt="Cumple de Gise!!" />
-        <button class="next">&gt;</button>
+        <div class="images-container">
+            <img src="profeta1.gif" alt="Imagen 1">
+            <img src="profeta2.png" alt="Imagen 2">
+            
+        </div>
     </div>
 
     <script>
+        const imagesContainer = document.querySelector('.images-container');
         const images = document.querySelectorAll('.carrusel img');
-        const prevButton = document.querySelector('.prev');
-        const nextButton = document.querySelector('.next');
         let currentIndex = 0;
 
         function updateCarousel() {
-            images.forEach((img, index) => {
-                img.classList.toggle('invisible', index !== currentIndex);
-            });
+            const offset = -currentIndex * 100; // Calcular el desplazamiento
+            imagesContainer.style.transform = `translateX(${offset}%)`; // Aplicar el desplazamiento
         }
 
-        prevButton.addEventListener('click', () => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-            updateCarousel();
-        });
-
-        nextButton.addEventListener('click', () => {
+        // Función para avanzar al siguiente índice
+        function nextImage() {
             currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
             updateCarousel();
+        }
+
+        // Agrega evento de clic a las imágenes
+        images.forEach(image => {
+            image.addEventListener('click', nextImage);
         });
 
         // Inicializa el carrusel
@@ -90,5 +72,3 @@
     </script>
 </body>
 </html>
-
- 
