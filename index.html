@@ -1,64 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cumple de Gise!!</title>
-   <style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    background-image: url("wallpaper-wizarding.jpg");
-    background-size: cover;
-    background-position: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  section {
-    display: flex;
-    width: 90%; /* Cambiado a porcentaje */
-    height: auto; /* Altura automática */
-    max-width: 700px; /* Máximo ancho para pantallas grandes */
-    margin: 20px 0; /* Margen vertical */
-  }
-  
-  section img {
-    width: 100%; /* Ocupa el ancho completo */
-    height: auto; /* Mantiene la proporción */
-    flex-grow: 1;
-    object-fit: cover;
-    opacity: 0.9;
-    transition: 0.5s ease;
-  }
-  
-  section img:hover {
-    cursor: crosshair;
-    opacity: 1;
-    filter: contrast(130%);
-  }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cumple Gise</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-image: url("wallpaper-wizarding.jpg");
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+        
+        .carrusel {
+            display: flex;
+            overflow: hidden; /* Esconde las imágenes que están fuera de la vista */
+            width: 90%;
+            max-width: 700px;
+            height: auto; /* Permitir altura automática */
+            position: relative;
+        }
 
-  /* Media Queries para pantallas más pequeñas */
-  @media (max-width: 600px) {
-    section {
-      flex-direction: column; /* Apila las imágenes en columnas */
-      height: auto; /* Altura automática para columnas */
-    }
+        .carrusel img {
+            min-width: 100%; /* Cada imagen ocupará el ancho completo del contenedor */
+            transition: transform 0.5s ease; /* Transición suave al cambiar de imagen */
+        }
 
-    section img {
-      width: 100%; /* Mantiene el ancho completo */
-      margin-bottom: 10px; /* Espacio entre imágenes */
-    }
-  }
-</style>
-  </head>
-  <body>
-     <section>
-     <img src="profeta1.gif" alt="Cumple de Gise!!" />
+        .carrusel img.invisible {
+            transform: translateX(-100%); /* Mueve las imágenes invisibles fuera de la vista */
+        }
+
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px; /* Botón anterior */
+        }
+
+        .next {
+            right: 10px; /* Botón siguiente */
+        }
+    </style>
+</head>
+<body>
+    <div class="carrusel">
+        <button class="prev">&lt;</button>
+       <img src="profeta1.gif" alt="Cumple de Gise!!" />
       <img src="profeta2.png" alt="Cumple de Gise!!" />
-    </section>
-  </body>
+        <button class="next">&gt;</button>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll('.carrusel img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            images.forEach((img, index) => {
+                img.classList.toggle('invisible', index !== currentIndex);
+            });
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            updateCarousel();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+        });
+
+        // Inicializa el carrusel
+        updateCarousel();
+    </script>
+</body>
 </html>
+
+ 
