@@ -19,22 +19,30 @@
         }
         
         .carrusel {
-            display: flex;
-            overflow: hidden; /* Esconde las imágenes que están fuera de la vista */
-            width: 90%;
-            max-width: 600px;
-            position: relative;
-        }
+        display: flex;
+        overflow: hidden; /* Esconde las imágenes que están fuera de la vista */
+        width: 90%;
+        max-width: 700px; /* Mantén un ancho máximo para pantallas grandes */
+        position: relative;
+    }
 
-        .images-container {
-            display: flex; /* Permite que las imágenes estén en línea */
-            transition: transform 0.5s ease; /* Transición suave al cambiar de imagen */
-        }
+    .images-container {
+        display: flex; /* Permite que las imágenes estén en línea */
+        transition: transform 0.5s ease; /* Transición suave al cambiar de imagen */
+    }
 
-        .carrusel img {
-            min-width: 100%; /* Cada imagen ocupará el ancho completo del contenedor */
-            cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+    .carrusel img {
+        min-width: 100%; /* Cada imagen ocupará el ancho completo del contenedor */
+        height: auto; /* Mantiene la relación de aspecto */
+        object-fit: cover; /* Cubre el área sin deformar la imagen */
+        cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+    }
+
+    @media (max-width: 600px) {
+        .carrusel {
+            width: 95%; /* Ancho del carrusel en pantallas pequeñas */
         }
+    }
     </style>
 </head>
 <body>
