@@ -1,84 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cumple Gise</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cumple de Gise!!</title>
     <style>
-    body {
+      body {
+        background: url("wallpaper_wizarding.jpg") no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
         height: 100vh;
-        margin: 0;
-        background-image: url("wallpaper-wizarding.jpg");
-        background-size: cover;
-        background-position: center;
-        font-family: Arial, sans-serif;
-    }
-    
-    .carrusel {
-        display: flex;
-        overflow: hidden; /* Esconde las imágenes que están fuera de la vista */
-        width: 90%; /* Ajusta el ancho del carrusel */
-        max-width: 700px; /* Máximo ancho para pantallas grandes */
+      }
+
+      .carrusel {
+        width: 80%;
+        max-width: 402px; /* Basado en el ancho de la imagen más grande */
         position: relative;
-    }
+      }
 
-    .images-container {
-        display: flex; /* Permite que las imágenes estén en línea */
-        transition: transform 0.5s ease; /* Transición suave al cambiar de imagen */
-    }
+      .images-container {
+        position: relative;
+        width: 100%;
+      }
 
-    .carrusel img {
-        width: auto; /* Permite que el ancho sea automático */
-        height: 100%; /* Ocupa toda la altura del contenedor */
-        max-height: 400px; /* Altura máxima para las imágenes */
-        object-fit: contain; /* Mantiene la relación de aspecto y ajusta dentro del contenedor */
-        cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
-    }
+      .images-container img {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
 
-    @media (max-width: 600px) {
-        .carrusel {
-            width: 95%; /* Ajusta el ancho en pantallas más pequeñas */
-        }
-    }
-</style>
+      .images-container img:first-child {
+        opacity: 1;
+      }
 
-</head>
-<body>
+      .images-container img.active {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
     <div class="carrusel">
-        <div class="images-container">
-            <img src="profeta1.gif" alt="Imagen 1">
-            <img src="profeta2.png" alt="Imagen 2">
-            
-        </div>
+      <div class="images-container">
+        <img src="profeta1.gif" alt="Imagen 1" />
+        <img src="profeta2.png" alt="Imagen 2" />
+      </div>
     </div>
-
     <script>
-        const imagesContainer = document.querySelector('.images-container');
-        const images = document.querySelectorAll('.carrusel img');
-        let currentIndex = 0;
+      document
+        .querySelector(".carrusel")
+        .addEventListener("click", function () {
+          const images = document.querySelectorAll(".images-container img");
+          images.forEach((img) => img.classList.remove("active"));
 
-        function updateCarousel() {
-            const offset = -currentIndex * 100; // Calcular el desplazamiento
-            imagesContainer.style.transform = `translateX(${offset}%)`; // Aplicar el desplazamiento
-        }
+          let activeImage = document.querySelector(
+            ".images-container img.active"
+          );
+          let nextImage = activeImage
+            ? activeImage.nextElementSibling
+            : images[0];
 
-        // Función para avanzar al siguiente índice
-        function nextImage() {
-            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-            updateCarousel();
-        }
+          if (!nextImage) {
+            nextImage = images[0];
+          }
 
-        // Agrega evento de clic a las imágenes
-        images.forEach(image => {
-            image.addEventListener('click', nextImage);
+          nextImage.classList.add("active");
         });
-
-        // Inicializa el carrusel
-        updateCarousel();
     </script>
-</body>
+  </body>
 </html>
