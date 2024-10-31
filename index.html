@@ -32,11 +32,13 @@
     }
 
     .carrusel img {
-        min-width: 100%; /* Cada imagen ocupará el ancho completo del contenedor */
-        height: auto; /* Mantiene la relación de aspecto */
-        object-fit: cover; /* Cubre el área sin deformar la imagen */
+        width: auto; /* Permite que el ancho sea automático */
+        height: 100%; /* Ocupa toda la altura del contenedor */
+        max-height: 400px; /* Altura máxima para las imágenes */
+        object-fit: contain; /* Mantiene la relación de aspecto y ajusta dentro del contenedor */
         cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
     }
+
 
      @media (max-width: 600px) {
         .carrusel {
